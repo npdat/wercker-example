@@ -1,0 +1,89 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
+
+== Command Log
+
+<pre>
+% rvm use 2.1.2 --default
+% gem install rails
+% rails new wercker-example -T --skip-bundle
+% cd wercker-example
+
+% git init
+% git add .
+% git commit -m "rails new wercker-example -T --skip-bundle"
+
+% rvm rvmrc create 2.1.2@wercker-example --ruby-version
+% git add .
+% git commit -m "add .ruby-version files"
+
+% bundle install --path vendor/bundle
+% echo "/vendor/bundle" >> .gitignore
+% git commit -am "add /vendor/bundle into .gitignore"
+
+% echo "remove gem 'sqlite3' from Gemfile"
+% echo "gem 'pg',      group: :production"           >> Gemfile
+% echo "gem 'sqlite3', group: [:development, :test]" >> Gemfile
+% bundle
+% git commit -am "add pg gem for production, sqlite3 gem for development and test environment"
+
+% echo "gem 'rspec-rails', group: [:development, :test]" >> Gemfile
+% bundle
+% git commit -am "add rspec-rails gem"
+
+% be rails g rspec:install
+% be rake spec
+% git add .
+% git commit -m "add rspec files"
+
+% git remote add git@github.com:meltedice/wercker-example.git
+% git remote add origin git@github.com:meltedice/wercker-example.git
+% git push origin master:master
+% git branch --set-upstream-to origin/master
+
+% echo "add wercker.yml"
+% git add .
+% git commit -am "add wercker.yml"
+
+% be rails g scaffold items name:string
+% rake db:migrate
+% be rake spec
+% git add .
+% git commit -am "add items scaffold"
+
+% heroku logs            --app meltedice-wercker-example
+% heroku logs --tail     --app meltedice-wercker-example
+% heroku rake db:migrate --app meltedice-wercker-example
+% heroku run rails c     --app meltedice-wercker-example
+irb(main):001:0> open('log/production.log').read
+
+% echo "add deploy configuratin into wercker.yml"
+% git add .
+% git commit -am "add deploy configuratin into wercker.yml"
+</pre>

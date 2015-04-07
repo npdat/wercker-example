@@ -22,6 +22,7 @@ deploy:
   steps:
     - heroku-deploy:
         install-toolbelt: true
+        heroku config:set SECRET_KEY_BASE=yourkeybasehere
     - script:
         name: Migrate DB
         code: heroku run rake db:migrate --app $HEROKU_APP_NAME
